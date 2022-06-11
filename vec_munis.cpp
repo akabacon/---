@@ -138,46 +138,66 @@ void print(vector<int> c)
 vector<int> raze_0(vector<int> a)
 {
   vector <int> result=a;
-  int index;
+  int index=-1;
   for (int i = 0; result[i] == 0 && i<result.size(); i++)
   {
     index = i;
   }
   //cout << index << endl;
-  
-  if (index==result.size()-1) //index denote last element (it's all zero)
+  if(index==-1){
+    return result;
+  }
+  else if (index==result.size()-1) //index denote last element (it's all zero)
   { // unit digit of a is not zero(it's all zero)
      for (int i = 0; i <= index-1; i++)
     {
       result.erase(result.begin()); //leave a unit zero,and erase others
     }
+    return result;
 
   }
- 
-  else if (index!=result.size()-1)
+  else
   {
     for (int i = 0; i <= index; i++)
     {
       result.erase(result.begin());
     }
+    return result;
+
   }
   
-  return result;
+}
+vector<int> zero_fill(vector<int> a,int len){
+  vector<int> b=a;
+  int dif=len-b.size(); //difference between two numbers
+  for(int i=0;i<dif;i++){
+    b.insert(b.begin(),0);
+  }
+  return b;
 }
 int main()
 {
-  vector<int> a = {1, 9, 9, 9, 9};
+  vector<int> a = {9, 9, 9, 9};
   vector<int> b = {0, 0, 0, 0, 1};
-  // vector<int> sum = add(a, b);
-  // print(sum);
+  vector<int>a_fill_0=zero_fill(a,5);
+  vector<int>b_fill_0=zero_fill(b,5);
+  print(a_fill_0);
+  print(b_fill_0);
+  
+  vector<int> sum_with0 = add(a_fill_0, b_fill_0);
+  cout<<"length="<<sum_with0.size()<<endl; //maybe have carry,so it's size+1
+  print(sum_with0);
 
-  vector<int> c = {0, 0, 0, 0, 0};
-  vector<int> d = {0, 0, 0, 0, 1};
-  vector<int> substract_with0 = minus_vec(c, d);
-  print(substract_with0);
-  vector<int> substract = raze_0(substract_with0);
+  vector<int> sum = raze_0(sum_with0);
+  cout<<"length="<<sum.size()<<endl;
+  print(sum);
 
-  print(substract);
+  //vector<int> c = {0, 0, 0, 0, 0};
+  //vector<int> d = {0, 0, 0, 0, 1};
+  //vector<int> substract_with0 = minus_vec(c, d);
+  //print(substract_with0);
+  //vector<int> substract = raze_0(substract_with0);
+  //print(substract);
   puts("");
   return 0;
 }
